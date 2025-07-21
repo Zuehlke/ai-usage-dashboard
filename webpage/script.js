@@ -10,11 +10,13 @@ const activeUsersChartCanvas = document.getElementById('activeUsersChart');
 const topLanguagesChartCanvas = document.getElementById('topLanguagesChart');
 let activeUsersChartInstance = null; // To hold chart instance for updates
 let topLanguagesChartInstance = null;
+const modalError = document.getElementById('modalError');
 
 function showCredentialsModal() {
   credentialsModal.style.display = 'block';
   // Reset inputs if needed; org has default
   keyInput.value = '';  // Clear key input for security
+  modalError.textContent = '';
 }
 
 function hideCredentialsModal() {
@@ -25,11 +27,11 @@ submitCredentials.addEventListener('click', () => {
   const org = orgInput.value.trim();
   const apiKey = keyInput.value.trim();
   if (!org) {
-    outputDiv.textContent = 'Organization name required!';
+    modalError.textContent = 'Organization name required!';
     return;
   }
   if (!apiKey) {
-    outputDiv.textContent = 'API key required!';
+    modalError.textContent = 'API key required!';
     return;
   }
   localStorage.setItem('githubOrgName', org);
@@ -55,7 +57,7 @@ function getCredentialsOrFetchData() {
 function fetchData() {
   const apiKey = localStorage.getItem('githubApiKey');
   const org = localStorage.getItem('githubOrgName');
-  outputDiv.textContent = 'Loading...';
+  console.log('Fetching data...');
 
   fetch(`https://api.github.com/orgs/${org}/copilot/metrics`, {
     headers: {
@@ -72,7 +74,7 @@ function fetchData() {
     })
     .then(data => {
       if (data.length === 0) {
-        outputDiv.textContent = 'No data available.';
+        console.log('No data available.');
         return;
       }
 
@@ -187,9 +189,9 @@ function fetchData() {
         }
       });
 
-      outputDiv.textContent = 'Data fetched successfully.';
+      console.log('Data fetched successfully.');
     })
-    .catch(error => outputDiv.textContent = `Error: ${error.message}`);
+    .catch(error => console.error(`Error: ${error.message}`));
 }
 
 setCredentialsBtn.addEventListener('click', showCredentialsModal);

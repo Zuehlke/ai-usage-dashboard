@@ -28,20 +28,33 @@ button {
   background-color: #007bff; /* Flat blue */
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 15px 30px;
   margin: 10px 0;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s;
   width: 100%; /* Full width in slim column */
+  font-size: 1.2em; /* Larger text */
+}
+
+.secondary-button {
+  background-color: gray;
 }
 
 button:hover {
   background-color: #0056b3; /* Highlight on hover */
 }
 
+.secondary-button:hover {
+  background-color: darkgray;
+}
+
 button:active {
   background-color: #004085; /* Deeper highlight on active */
+}
+
+.secondary-button:active {
+  background-color: #333;
 }
 
 .widget {

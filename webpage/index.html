@@ -25,9 +25,8 @@
   </div>
   <div id="sidebar">
     <h1>GitHub Copilot Usage</h1>
-    <button id="setCredentialsBtn">Set Credentials</button>
-    <button id="fetchBtn">Fetch Metrics</button>
-    <div id="output">Loading...</div>
+    <button id="fetchBtn">Refresh</button>
+    <button id="setCredentialsBtn" class="secondary-button">Set Credentials</button>
   </div>
 
   <!-- Custom modal for credentials -->
@@ -39,8 +38,9 @@
     <label for="keyInput">API Key:</label>
     <input type="text" id="keyInput">
     <br>
+    <div id="modalError" style="color: red; margin-bottom: 10px;"></div>
     <button id="submitCredentials">Submit</button>
-    <button id="cancelCredentials">Cancel</button>
+    <button id="cancelCredentials" class="secondary-button">Cancel</button>
   </div>
 
   <script src="script.js"></script>
