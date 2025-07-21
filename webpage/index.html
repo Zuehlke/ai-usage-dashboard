@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Copilot Dashboard</title>
+  <title>GitHub Copilot Usage Dashboard</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <button id="toggleSidebar">☰</button>
+    </div>
+    <button id="fetchBtn">Refresh</button>
+    <button id="setCredentialsBtn" class="secondary-button">Set Credentials</button>
+  </div>
   <div id="mainColumn">
     <div class="widget">
       <h2>Users By Week</h2>
@@ -21,12 +28,6 @@
       <h2>Top 20 Programming Languages</h2>
       <canvas id="topLanguagesChart" width="400" height="200"></canvas>
     </div>
-    <!-- Add more widgets as needed -->
-  </div>
-  <div id="sidebar">
-    <h1>GitHub Copilot Usage</h1>
-    <button id="fetchBtn">Refresh</button>
-    <button id="setCredentialsBtn" class="secondary-button">Set Credentials</button>
   </div>
 
   <!-- Custom modal for credentials -->

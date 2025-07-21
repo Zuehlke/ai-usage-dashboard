@@ -11,6 +11,13 @@ const topLanguagesChartCanvas = document.getElementById('topLanguagesChart');
 let activeUsersChartInstance = null; // To hold chart instance for updates
 let topLanguagesChartInstance = null;
 const modalError = document.getElementById('modalError');
+const toggleSidebar = document.getElementById('toggleSidebar');
+const sidebar = document.getElementById('sidebar');
+const mainColumn = document.getElementById('mainColumn');
+
+toggleSidebar.addEventListener('click', () => {
+  document.body.classList.toggle('sidebar-collapsed');
+});
 
 function showCredentialsModal() {
   credentialsModal.style.display = 'block';

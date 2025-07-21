@@ -1,23 +1,82 @@
+:root {
+  --sidebar-width: 250px;
+  --sidebar-collapsed-width: 50px;
+  --spacing-unit: 20px;
+  --transition-speed: 0.3s;
+}
+
 body {
   font-family: sans-serif;
   background-color: #f4f4f4;
   margin: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  padding: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-areas: "sidebar main";
+  transition: grid-template-columns var(--transition-speed) ease;
 }
 
-#mainColumn {
-  flex: 3;
-  margin-right: 20px;
+body.sidebar-collapsed {
+  grid-template-columns: var(--sidebar-collapsed-width) 1fr;
 }
 
 #sidebar {
-  flex: 1;
+  grid-area: sidebar;
+  background-color: #fff;
+  padding: var(--spacing-unit);
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  transition: padding var(--transition-speed) ease;
+  height: 100vh;
+}
+
+body.sidebar-collapsed #sidebar {
+  padding: 10px 5px;
+}
+
+#mainColumn {
+  grid-area: main;
+  padding: var(--spacing-unit);
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  position: relative;
+  margin-bottom: 20px;
+  min-height: 40px;
+}
+
+#toggleSidebar {
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  color: #666;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+body.sidebar-collapsed .sidebar-header {
+  /* Remove justify-content changes - not needed anymore */
+}
+
+body.sidebar-collapsed #toggleSidebar {
+  /* Keep same position - no changes needed */
+}
+
+body.sidebar-collapsed .sidebar-header h1,
+body.sidebar-collapsed button:not(#toggleSidebar) {
+  display: none;
 }
 
 h1 {
@@ -32,7 +91,7 @@ button {
   margin: 10px 0;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: transform 0.2s;
   width: 100%; /* Full width in slim column */
   font-size: 1.2em; /* Larger text */
 }
@@ -42,11 +101,12 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3; /* Highlight on hover */
+  background-color: #007bff; /* Same as normal state */
+  transform: scale(1.05);
 }
 
 .secondary-button:hover {
-  background-color: darkgray;
+  background-color: gray; /* Same as normal state */
 }
 
 button:active {
@@ -59,9 +119,16 @@ button:active {
 
 .widget {
   background-color: white;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.widget h2 {
+  font-size: 1.8em;
+  color: #666;
+  margin-top: 0;
   margin-bottom: 20px;
 }
 
