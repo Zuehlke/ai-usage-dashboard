@@ -174,24 +174,4 @@ button:active {
 
 #credentialsModal button {
   margin-right: 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-table th, table td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-table th {
-  background-color: #f2f2f2;
-}
-
-table tr:hover {
-  background-color: #f5f5f5;
 } 
