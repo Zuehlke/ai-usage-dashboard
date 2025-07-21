@@ -75,9 +75,29 @@ function fetchData() {
         outputDiv.textContent = 'No data available.';
         return;
       }
-      const dates = data.map(item => item.date);
-      const activeUsers = data.map(item => item.total_active_users);
-      const engagedUsers = data.map(item => item.total_engaged_users);
+
+      // Process weekly aggregates
+      const weeklyData = new Map();
+
+      function getWeekStart(dateStr) {
+        const date = new Date(dateStr);
+        const day = date.getDay();
+        const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Monday start
+        return new Date(date.setDate(diff)).toISOString().split('T')[0];
+      }
+
+      data.forEach(item => {
+        const week = getWeekStart(item.date);
+        if (!weeklyData.has(week)) {
+          weeklyData.set(week, { active: 0, engaged: 0 });
+        }
+        weeklyData.get(week).active += item.total_active_users || 0;
+        weeklyData.get(week).engaged += item.total_engaged_users || 0;
+      });
+
+      const sortedWeeks = Array.from(weeklyData.keys()).sort();
+      const activeUsers = sortedWeeks.map(week => weeklyData.get(week).active);
+      const engagedUsers = sortedWeeks.map(week => weeklyData.get(week).engaged);
 
       // Process language rankings
       const languageSums = {};
@@ -133,11 +153,11 @@ function fetchData() {
         activeUsersChartInstance.destroy();
       }
 
-      // Create new line chart
+      // Create new line chart with weekly data
       activeUsersChartInstance = new Chart(activeUsersChartCanvas, {
         type: 'line',
         data: {
-          labels: dates,
+          labels: sortedWeeks,
           datasets: [{
             label: 'Total Active Users',
             data: activeUsers,
@@ -155,6 +175,13 @@ function fetchData() {
           scales: {
             y: {
               beginAtZero: true
+            },
+            x: {
+              ticks: {
+                autoSkip: true,
+                maxRotation: 90,
+                minRotation: 90
+              }
             }
           }
         }
