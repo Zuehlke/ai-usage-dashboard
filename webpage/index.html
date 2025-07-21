@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="mainColumn">
+    <div class="widget">
+      <h2>Users By Day</h2>
+      <canvas id="activeUsersChart" width="400" height="200"></canvas>
+    </div>
+    <div class="widget">
+      <h2>Top 20 Programming Languages</h2>
+      <canvas id="topLanguagesChart" width="400" height="200"></canvas>
+    </div>
+    <!-- Add more widgets as needed -->
+  </div>
+  <div id="sidebar">
+    <h1>GitHub Copilot Usage</h1>
+    <button id="setCredentialsBtn">Set Credentials</button>
+    <button id="fetchBtn">Fetch Metrics</button>
+    <div id="output">Loading...</div>
+  </div>
+
+  <!-- Custom modal for credentials -->
+  <div id="credentialsModal">
+    <h2>Set Credentials</h2>
+    <label for="orgInput">Organization Name:</label>
+    <input type="text" id="orgInput" value="zuhlkeengineering">
+    <br>
+    <label for="keyInput">API Key:</label>
+    <input type="text" id="keyInput">
+    <br>
+    <button id="submitCredentials">Submit</button>
+    <button id="cancelCredentials">Cancel</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html> 
