@@ -170,12 +170,14 @@ function fetchData() {
           datasets: [{
             label: 'Total Active Users',
             data: activeUsers,
-            borderColor: '#007bff',
+            borderColor: '#87CEEB',
+            backgroundColor: 'rgba(135, 206, 235, 0.1)',
             tension: 0.1
           }, {
             label: 'Total Engaged Users',
             data: engagedUsers,
-            borderColor: '#28a745',
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0, 123, 255, 0.1)',
             tension: 0.1
           }]
         },
