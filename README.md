@@ -1,12 +1,13 @@
 
 # GitHub Copilot Dashboard
 
-A simple web page that shows how Zühlke employees use GitHub Copilot, an AI coding assistant.
+A simple web page that shows how Zühlke employees use GitHub Copilot:
+
+![GitHub Copilot Dashboard Screenshot](screenshot.png)
 
 ## What It Does
 - Fetches data from GitHub API.
-- Displays daily active users.
-- Shows top programming languages used with Copilot.
+- Displays different metrics as charts.
 
 ## How to Use
 1. Open `webpage/index.html` in your browser.
