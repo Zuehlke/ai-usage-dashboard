@@ -339,6 +339,32 @@ function fetchData() {
       const langLabels = sortedLanguages.map(([name]) => name);
       const langData = sortedLanguages.map(([, sum]) => sum);
 
+      // Create gradient colors from purple to blue
+      function interpolateColor(startColor, endColor, factor) {
+        const start = {
+          r: parseInt(startColor.slice(1, 3), 16),
+          g: parseInt(startColor.slice(3, 5), 16),
+          b: parseInt(startColor.slice(5, 7), 16)
+        };
+        const end = {
+          r: parseInt(endColor.slice(1, 3), 16),
+          g: parseInt(endColor.slice(3, 5), 16),
+          b: parseInt(endColor.slice(5, 7), 16)
+        };
+        
+        const r = Math.round(start.r + (end.r - start.r) * factor);
+        const g = Math.round(start.g + (end.g - start.g) * factor);
+        const b = Math.round(start.b + (end.b - start.b) * factor);
+        
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+      }
+
+      const gradientColors = [];
+      for (let i = 0; i < langLabels.length; i++) {
+        const factor = langLabels.length > 1 ? i / (langLabels.length - 1) : 0;
+        gradientColors.push(interpolateColor('#985B9C', '#66CCFF', factor));
+      }
+
       // Process IDE data
       const ideData = processIdeData(data);
       createIdeCharts(ideData);
@@ -356,7 +382,7 @@ function fetchData() {
           datasets: [{
             label: 'Engaged Users',
             data: langData,
-            backgroundColor: '#985B9C'
+            backgroundColor: gradientColors
           }]
         },
         options: {
