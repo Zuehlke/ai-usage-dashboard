@@ -159,7 +159,7 @@ function createIdeCharts(ideData) {
       datasets: [{
         label: 'Engaged Users',
         data: userChatData,
-        backgroundColor: '#007bff'
+        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1'].slice(0, chatLabels.length)
       }]
     },
     options: {
