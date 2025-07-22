@@ -137,6 +137,11 @@ function createIdeCharts(ideData) {
     },
     options: {
       responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
       scales: {
         y: {
           beginAtZero: true
@@ -164,6 +169,11 @@ function createIdeCharts(ideData) {
     },
     options: {
       responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
       scales: {
         y: {
           beginAtZero: true
@@ -351,6 +361,11 @@ function fetchData() {
         },
         options: {
           responsive: true,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
           scales: {
             y: {
               beginAtZero: true
