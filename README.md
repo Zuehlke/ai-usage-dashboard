@@ -10,8 +10,8 @@ A simple web page that shows how Zühlke employees use GitHub Copilot:
 - Displays different metrics as charts.
 
 ## How to Use
-1. Open `webpage/index.html` in your browser.
-2. Click "Set Credentials" and enter your GitHub organization name and API key.
-3. Click "Refresh" to load and view the dashboard.
+* Open `webpage/index.html` in your browser.
+* When no credentials have been set: Click "Set Credentials" and enter your GitHub organization name and API key.
+* When credentials have already been set: Click "Refresh".
 
 Note: This is a client-side tool; keep your API key secure.
