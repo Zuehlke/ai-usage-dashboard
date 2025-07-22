@@ -7,7 +7,7 @@
 
 body {
   font-family: sans-serif;
-  background-color: #f4f4f4;
+  background-color: #CCCCCC;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -57,7 +57,7 @@ body.sidebar-collapsed #sidebar {
   width: 40px;
   height: 40px;
   margin: 0;
-  color: #57524D;
+  color: #AAAAAA;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,24 +97,11 @@ button {
 }
 
 .secondary-button {
-  background-color: #CCCCCC;
+  background-color: #AAAAAA;
 }
 
 button:hover {
-  background-color: #985B9C; /* Same as normal state */
   transform: scale(1.05);
-}
-
-.secondary-button:hover {
-  background-color: #CCCCCC; /* Same as normal state */
-}
-
-button:active {
-  background-color: #985B9C; /* Same as normal state */
-}
-
-.secondary-button:active {
-  background-color: #CCCCCC; /* Same as normal state */
 }
 
 .widget {
@@ -127,9 +114,10 @@ button:active {
 
 .widget h2 {
   font-size: 1.8em;
-  color: #57524D;
+  color: #AAAAAA;
   margin-top: 0;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 #output {
@@ -193,7 +181,8 @@ button:active {
 .ide-chart-container h3 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
-  color: #57524D;
+  color: #AAAAAA;
+  font-weight: normal;
 }
 
 .ide-chart-container canvas {
@@ -201,5 +190,5 @@ button:active {
 }
 
 .widget p {
-  color: #CCCCCC;
+  color: #AAAAAA;
 } 
