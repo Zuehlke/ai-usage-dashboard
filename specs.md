@@ -6,7 +6,7 @@ The goal is to build a simple web dashboard that fetches and displays GitHub Cop
 ## Tech Stack
 - **Frontend**: HTML for structure, CSS for styling, and vanilla JavaScript (using Fetch API) for making API requests and rendering data.
 - **No backend** initially, to keep it simplest; API key handled client-side (with security caveats).
-- **Optional**: Chart.js for visualizations if needed.
+- **Additional**: Chart.js for chart visualizations.
 
 ## API Key Handling
 - For local testing, prompt the user for the GitHub API key on page load if not already stored.
