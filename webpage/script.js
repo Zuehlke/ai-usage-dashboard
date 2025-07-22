@@ -145,9 +145,12 @@ function createIdeCharts(ideData) {
     }
   });
 
-  // IDE Chat Activity - Bar Chart
-  const chatLabels = Object.keys(ideData.ideChat);
-  const userChatData = chatLabels.map(ide => ideData.ideChat[ide].users);
+  // IDE Chat Activity - Bar Chart (sorted by engaged users)
+  const sortedChatEntries = Object.entries(ideData.ideChat)
+    .sort(([,a], [,b]) => b.users - a.users); // Sort by engaged users descending
+  
+  const chatLabels = sortedChatEntries.map(([ide]) => ide);
+  const userChatData = sortedChatEntries.map(([, data]) => data.users);
 
   ideChatChartInstance = new Chart(ideChatChartCanvas, {
     type: 'bar',
