@@ -142,7 +142,7 @@ button:hover {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   min-width: 300px; /* Ensure minimum width for spacing */
 }
