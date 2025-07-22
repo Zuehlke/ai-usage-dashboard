@@ -10,12 +10,12 @@ const activeUsersChartCanvas = document.getElementById('activeUsersChart');
 const topLanguagesChartCanvas = document.getElementById('topLanguagesChart');
 const ideOverviewChartCanvas = document.getElementById('ideOverviewChart');
 const ideChatChartCanvas = document.getElementById('ideChatChart');
-const ideLanguageChartCanvas = document.getElementById('ideLanguageChart');
+const ideChartsContainer = document.getElementById('ideChartsContainer');
 let activeUsersChartInstance = null; // To hold chart instance for updates
 let topLanguagesChartInstance = null;
 let ideOverviewChartInstance = null;
 let ideChatChartInstance = null;
-let ideLanguageChartInstance = null;
+let ideChartInstances = {};
 const modalError = document.getElementById('modalError');
 const toggleSidebar = document.getElementById('toggleSidebar');
 const sidebar = document.getElementById('sidebar');
@@ -115,7 +115,10 @@ function createIdeCharts(ideData) {
   // Destroy existing charts
   if (ideOverviewChartInstance) ideOverviewChartInstance.destroy();
   if (ideChatChartInstance) ideChatChartInstance.destroy();
-  if (ideLanguageChartInstance) ideLanguageChartInstance.destroy();
+  
+  // Destroy existing IDE language charts
+  Object.values(ideChartInstances).forEach(chart => chart.destroy());
+  ideChartInstances = {};
 
   // IDE Overview - Donut Chart
   const overviewLabels = Object.keys(ideData.ideOverview);
@@ -171,67 +174,90 @@ function createIdeCharts(ideData) {
     }
   });
 
-  // IDE Language Matrix - Stacked Bar Chart
-  const ides = Object.keys(ideData.ideLanguageMatrix);
-  const allLanguages = new Set();
-  
-  // Get all unique languages
-  ides.forEach(ide => {
-    Object.keys(ideData.ideLanguageMatrix[ide]).forEach(lang => allLanguages.add(lang));
-  });
-  
-  // Get global language totals to determine top languages
-  const languageTotals = {};
-  ides.forEach(ide => {
-    Object.keys(ideData.ideLanguageMatrix[ide]).forEach(lang => {
-      if (!languageTotals[lang]) languageTotals[lang] = 0;
-      languageTotals[lang] += ideData.ideLanguageMatrix[ide][lang];
-    });
-  });
-  
-  // Get top 10 languages globally
-  const topLanguages = Object.keys(languageTotals)
-    .sort((a, b) => languageTotals[b] - languageTotals[a])
-    .slice(0, 10);
+  // Create individual charts for each IDE with proper sorting
+  createIndividualIdeCharts(ideData.ideLanguageMatrix);
+}
+
+function createIndividualIdeCharts(ideLanguageMatrix) {
+  // Clear the container
+  ideChartsContainer.innerHTML = '';
   
   const languageColors = [
     '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
-    '#FF9F40', '#FF6384', '#C9CBCF', '#4BC0C0', '#36A2EB'
+    '#FF9F40', '#C9CBCF', '#FF9A8B', '#A8E6CF', '#FFD93D'
   ];
-
-  // Create datasets with proper sorting - largest segments at bottom
-  // Sort languages by their maximum value across all IDEs for consistent ordering
-  const languageMaxValues = {};
-  topLanguages.forEach(lang => {
-    languageMaxValues[lang] = Math.max(...ides.map(ide => ideData.ideLanguageMatrix[ide][lang] || 0));
-  });
   
-  const sortedLanguages = topLanguages.sort((a, b) => languageMaxValues[a] - languageMaxValues[b]); // Ascending for bottom-up
-  
-  const datasets = sortedLanguages.map((lang, index) => ({
-    label: lang,
-    data: ides.map(ide => ideData.ideLanguageMatrix[ide][lang] || 0),
-    backgroundColor: languageColors[index % languageColors.length]
-  }));
-
-  ideLanguageChartInstance = new Chart(ideLanguageChartCanvas, {
-    type: 'bar',
-    data: {
-      labels: ides,
-      datasets: datasets
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          stacked: true
+  // Create a chart for each IDE
+  Object.keys(ideLanguageMatrix).forEach(ideId => {
+    const ideData = ideLanguageMatrix[ideId];
+    
+    // Skip "unknown" IDE
+    if (ideId.toLowerCase() === 'unknown') return;
+    
+    // Sort languages by usage for this specific IDE (descending order)
+    const sortedLanguages = Object.entries(ideData)
+      .filter(([lang, value]) => value > 0) // Only include languages with usage
+      .sort(([,a], [,b]) => b - a) // Sort by value descending
+      .slice(0, 8); // Top 8 languages
+    
+    if (sortedLanguages.length === 0) return; // Skip if no data
+    
+    // Create container div
+    const chartContainer = document.createElement('div');
+    chartContainer.className = 'ide-chart-container';
+    
+    // Create title
+    const title = document.createElement('h3');
+    title.textContent = ideId;
+    chartContainer.appendChild(title);
+    
+    // Create canvas
+    const canvas = document.createElement('canvas');
+    canvas.id = `ideChart_${ideId}`;
+    chartContainer.appendChild(canvas);
+    
+    // Add to container
+    ideChartsContainer.appendChild(chartContainer);
+    
+    // Prepare data for chart - highest usage on the left
+    const labels = sortedLanguages.map(([lang]) => lang);
+    const data = sortedLanguages.map(([, value]) => value);
+    const colors = labels.map((_, index) => languageColors[index % languageColors.length]);
+    
+    // Create chart
+    const ctx = canvas.getContext('2d');
+    ideChartInstances[ideId] = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Engaged Users',
+          data: data,
+          backgroundColor: colors
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false // Hide legend for cleaner look
+          }
         },
-        y: {
-          stacked: true,
-          beginAtZero: true
+        scales: {
+          y: {
+            beginAtZero: true
+          },
+          x: {
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45,
+              padding: 10
+            },
+            offset: true
+          }
         }
       }
-    }
+    });
   });
 }
 
