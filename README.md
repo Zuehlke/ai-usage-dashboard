@@ -13,5 +13,6 @@ A simple web page that shows how Zühlke employees use GitHub Copilot:
 * Open `webpage/index.html` in your browser.
 * When no credentials have been set: Click "Set Credentials", enter GitHub organization and API key.
 * When credentials have already been set: Click "Refresh".
+* The refresh button reloads all GitHub data and updates the dashboard.
 
 Note: This is a client-side tool; keep your API key secure.
