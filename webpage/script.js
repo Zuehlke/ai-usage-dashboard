@@ -145,10 +145,13 @@ function createIdeCharts(ideData) {
     }
   });
 
-  // IDE Chat Activity - Bar Chart
-  const chatLabels = Object.keys(ideData.ideChat);
-  const chatData = chatLabels.map(ide => ideData.ideChat[ide].chats);
-  const userChatData = chatLabels.map(ide => ideData.ideChat[ide].users);
+  // IDE Chat Activity - Bar Chart (sorted by total chats)
+  const sortedChatData = Object.entries(ideData.ideChat)
+    .sort(([,a], [,b]) => b.chats - a.chats); // Sort by total chats descending
+  
+  const chatLabels = sortedChatData.map(([ide]) => ide);
+  const chatData = sortedChatData.map(([, data]) => data.chats);
+  const userChatData = sortedChatData.map(([, data]) => data.users);
 
   ideChatChartInstance = new Chart(ideChatChartCanvas, {
     type: 'bar',
