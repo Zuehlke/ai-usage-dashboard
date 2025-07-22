@@ -57,7 +57,7 @@ body.sidebar-collapsed #sidebar {
   width: 40px;
   height: 40px;
   margin: 0;
-  color: #666;
+  color: #57524D;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +84,7 @@ h1 {
 }
 
 button {
-  background-color: #007bff; /* Flat blue */
+  background-color: #985B9C; /* Flat blue */
   color: white;
   border: none;
   padding: 15px 30px;
@@ -97,24 +97,24 @@ button {
 }
 
 .secondary-button {
-  background-color: gray;
+  background-color: #CCCCCC;
 }
 
 button:hover {
-  background-color: #007bff; /* Same as normal state */
+  background-color: #985B9C; /* Same as normal state */
   transform: scale(1.05);
 }
 
 .secondary-button:hover {
-  background-color: gray; /* Same as normal state */
+  background-color: #CCCCCC; /* Same as normal state */
 }
 
 button:active {
-  background-color: #004085; /* Deeper highlight on active */
+  background-color: #985B9C; /* Same as normal state */
 }
 
 .secondary-button:active {
-  background-color: #333;
+  background-color: #CCCCCC; /* Same as normal state */
 }
 
 .widget {
@@ -127,7 +127,7 @@ button:active {
 
 .widget h2 {
   font-size: 1.8em;
-  color: #666;
+  color: #57524D;
   margin-top: 0;
   margin-bottom: 20px;
 }
@@ -193,9 +193,13 @@ button:active {
 .ide-chart-container h3 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
-  color: #666;
+  color: #57524D;
 }
 
 .ide-chart-container canvas {
   max-width: 100%;
+}
+
+.widget p {
+  color: #CCCCCC;
 } 

@@ -123,7 +123,7 @@ function createIdeCharts(ideData) {
   // IDE Overview - Donut Chart
   const overviewLabels = Object.keys(ideData.ideOverview);
   const overviewData = Object.values(ideData.ideOverview);
-  const ideColors = ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1'];
+  const ideColors = ['#985B9C', '#66CCFF', '#57524D', '#28a745', '#ffc107'];
 
   ideOverviewChartInstance = new Chart(ideOverviewChartCanvas, {
     type: 'bar',
@@ -164,7 +164,7 @@ function createIdeCharts(ideData) {
       datasets: [{
         label: 'Engaged Users',
         data: userChatData,
-        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1'].slice(0, chatLabels.length)
+        backgroundColor: ['#985B9C', '#66CCFF', '#57524D', '#28a745', '#ffc107'].slice(0, chatLabels.length)
       }]
     },
     options: {
@@ -191,7 +191,7 @@ function createIndividualIdeCharts(ideLanguageMatrix) {
   ideChartsContainer.innerHTML = '';
   
   const languageColors = [
-    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+    '#985B9C', '#66CCFF', '#57524D', '#4BC0C0', '#9966FF',
     '#FF9F40', '#C9CBCF', '#FF9A8B', '#A8E6CF', '#FFD93D'
   ];
   
@@ -356,7 +356,7 @@ function fetchData() {
           datasets: [{
             label: 'Engaged Users',
             data: langData,
-            backgroundColor: '#007bff'
+            backgroundColor: '#985B9C'
           }]
         },
         options: {
@@ -387,14 +387,14 @@ function fetchData() {
           datasets: [{
             label: 'Total Active Users',
             data: activeUsers,
-            borderColor: '#87CEEB',
-            backgroundColor: 'rgba(135, 206, 235, 0.1)',
+            borderColor: '#66CCFF',
+            backgroundColor: 'rgba(102, 204, 255, 0.1)',
             tension: 0.1
           }, {
             label: 'Total Engaged Users',
             data: engagedUsers,
-            borderColor: '#007bff',
-            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+            borderColor: '#985B9C',
+            backgroundColor: 'rgba(152, 91, 156, 0.1)',
             tension: 0.1
           }]
         },
